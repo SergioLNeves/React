@@ -1,0 +1,38 @@
+.font{
+    color: rgb(255, 0, 89);
+    text-align: center;
+    font-size: 38px;
+
+}
+
+.title{
+    color:rgb(205, 58, 58);
+    font-size: 20px;
+    text-align:start ;
+    border-bottom: 50px;
+}
+
+.title2{
+    color:rgb(205, 58, 58);
+    font-size: 20px;
+    text-align: end;
+    border-bottom: 50px;
+}
+
+.footpage{
+    color:rgb(205, 58, 58);
+    font-size: 15px;
+    text-align: end;
+}
+
+.text{
+    color: black;
+    font-size: 30px;
+    text-align: justify;
+}
+
+.img{
+    border: 1px solid black;
+    border-radius: 50%;
+    align-items: center;
+}
