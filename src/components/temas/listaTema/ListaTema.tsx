@@ -20,7 +20,7 @@ function ListaTema() {
     }
   }, [token])
 
-
+//se der erro na busca em tema venha aqui
   async function getTema(){
     await busca("/tema", setTemas, {
       headers: {
@@ -51,14 +51,14 @@ function ListaTema() {
           <CardActions>
             <Box display="flex" justifyContent="center" mb={1.5} >
 
-              <Link to={`/formularioTema/${tema.id}`} className="text-decorator-none">
+              <Link to={`/tema/${tema.id}`} className="text-decorator-none">
                 <Box mx={1}>
                   <Button variant="contained" className="marginLeft" size='small' color="primary" >
                     atualizar
                   </Button>
                 </Box>
               </Link>
-              <Link to={`/deletarTema/${tema.id}`} className="text-decorator-none">
+              <Link to={`/tema/${tema.id}`} className="text-decorator-none">
                 <Box mx={1}>
                   <Button variant="contained" size='small' color="secondary">
                     deletar

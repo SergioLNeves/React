@@ -22,7 +22,7 @@ function Navbar() {
                 <Toolbar variant="dense">
                     <Box className="cursor" >
                         <Typography variant="h5" color="inherit">
-                            BlogPessoal
+                            Blog Sérgio
                         </Typography>
                     </Box>
 
@@ -35,7 +35,7 @@ function Navbar() {
                             </Link>
                         </Box>
                         <Box mx={1} className="cursor">
-                            <Link to='/postagens' className="cursor text-decorator-none">
+                            <Link to='/posts' className="cursor text-decorator-none">
                             <Typography variant="h6" color="inherit">
                                 postagens
                             </Typography>
