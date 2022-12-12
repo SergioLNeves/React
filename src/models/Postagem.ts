@@ -6,7 +6,7 @@ interface Postagem{
     titulo: string;
     texto: string;
     tema?: Tema| null;
-    nome?: User|null;
+    user?: User|null;
 }
 
 export default Postagem;

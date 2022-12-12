@@ -1,53 +1,78 @@
 import React, { useEffect, useState } from 'react'
-import {Card, CardActions, CardContent, Button, Typography} from '@material-ui/core';
-import {Box} from '@mui/material';
+import { Card, CardActions, CardContent, Button, Typography } from '@material-ui/core';
+import { Box } from '@mui/material';
 import './DeletarTema.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
 import { buscaId, deleteId } from '../../../services/Services';
 import Tema from '../../../models/Tema';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
+import { toast } from 'react-toastify';
 
 
 function DeletarTema() {
   let navigate = useNavigate();
-  const { id } = useParams<{id: string}>()
-  const [token, setToken] = useLocalStorage('token');
+  const { id } = useParams<{ id: string }>()
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  );
   const [tema, setTema] = useState<Tema>()
 
   useEffect(() => {
-    if(token == ''){
-      navigate('/login')
+    if (token == "") {
+      toast.error('Você precisa estar logado', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "colored",
+        progress: undefined,
+      });
+      navigate("/login")
+
     }
-  },[token])
+  }, [token])
+
 
   useEffect(() => {
-    if(id != undefined){
+    if (id != undefined) {
       findById(id)
     }
-  },[id])
+  }, [id])
 
-  async function findById(id: string){
+  async function findById(id: string) {
     buscaId(`/tema/${id}`, setTema, {
-        Headers:{
-            'Authorization': token
-        }
+      Headers: {
+        'Authorization': token
+      }
     })
-}
+  }
 
-async function sim(){
-  navigate ('/temas')
-  deleteId(`/tema/${id}`,{
-    Headers: {
-      'Authorization': token
-    }
-  })
-  alert('Tema deletado com sucesso')
-}
+  async function sim() {
+    navigate('/temas')
+    deleteId(`/tema/${id}`, {
+      Headers: {
+        'Authorization': token
+      }
+    });
+    toast.success('Tema deletado com sucesso', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      theme: "colored",
+      progress: undefined,
+      });
+  }
 
-async function nao(){
-  navigate('/tema')
+  async function nao() {
+    navigate('/temas')
 
-}
+  }
 
 
   return (

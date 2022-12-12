@@ -1,52 +1,78 @@
 import React, { useEffect, useState } from 'react'
-import {Typography, Button, Card, CardActions, CardContent } from "@material-ui/core"
-import {Box} from '@mui/material';
+import { Typography, Button, Card, CardActions, CardContent } from "@material-ui/core"
+import { Box } from '@mui/material';
 import './DeletarPostagem.css';
 import Postagem from '../../../models/Postagem';
 import { useNavigate, useParams } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
 import { buscaId, deleteId } from '../../../services/Services';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
+import { toast } from 'react-toastify';
 
 function DeletarPostagem() {
   let navigate = useNavigate();
-  const { id } = useParams<{id: string}>()
-  const [token, setToken] = useLocalStorage('token');
+  const { id } = useParams<{ id: string }>()
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  );
   const [post, setPosts] = useState<Postagem>()
 
-  useEffect(() => {
-    if(token == ''){
-      navigate('/login')
-    }
-  },[token])
 
   useEffect(() => {
-    if(id != undefined){
+    if (token == "") {
+      toast.error('Você precisa estar logado', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "colored",
+        progress: undefined,
+      });
+      navigate("/login")
+
+    }
+  }, [token])
+
+  useEffect(() => {
+    if (id != undefined) {
       findById(id)
     }
-  },[id])
+  }, [id])
 
-  async function findById(id: string){
+  async function findById(id: string) {
     buscaId(`/postagens/${id}`, setPosts, {
-        Headers:{
-            'Authorization': token
-        }
+      Headers: {
+        'Authorization': token
+      }
     })
-}
+  }
 
-async function sim(){
-  navigate ('/posts')
-  deleteId(`/postagens/${id}`,{
-    Headers: {
-      'Authorization': token
-    }
-  })
-  alert('Postagem deletada com sucesso')
-}
+  async function sim() {
+    navigate('/posts')
+    deleteId(`/postagens/${id}`, {
+      Headers: {
+        'Authorization': token
+      }
+    })
+    toast.success('Postagem deletada com sucesso', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      theme: "colored",
+      progress: undefined,
+    });
 
-async function nao(){
-  navigate('/posts')
+  }
 
-}
+  async function nao() {
+    navigate('/posts')
+
+  }
 
   return (
     <>
@@ -58,7 +84,7 @@ async function nao(){
                 Deseja deletar a Postagem:
               </Typography>
               <Typography color="textSecondary" >
-              {post?.titulo}
+                {post?.titulo}
               </Typography>
             </Box>
 
@@ -66,14 +92,14 @@ async function nao(){
           <CardActions>
             <Box display="flex" justifyContent="start" ml={1.0} mb={2} >
               <Box mx={2}>
-              <Button onClick={sim} variant="contained" className="marginLeft" size='large' color="primary">
-                Sim
-              </Button>
+                <Button onClick={sim} variant="contained" className="marginLeft" size='large' color="primary">
+                  Sim
+                </Button>
               </Box>
               <Box>
-              <Button onClick={nao} variant="contained" size='large' color="secondary">
-                Não
-              </Button>
+                <Button onClick={nao} variant="contained" size='large' color="secondary">
+                  Não
+                </Button>
               </Box>
             </Box>
           </CardActions>
