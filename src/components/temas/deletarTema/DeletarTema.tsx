@@ -44,7 +44,7 @@ function DeletarTema() {
 
   async function findById(id: string) {
     buscaId(`/tema/${id}`, setTema, {
-      Headers: {
+      headers: {
         'Authorization': token
       }
     })
@@ -53,7 +53,7 @@ function DeletarTema() {
   async function sim() {
     navigate('/temas')
     deleteId(`/tema/${id}`, {
-      Headers: {
+      headers: {
         'Authorization': token
       }
     });

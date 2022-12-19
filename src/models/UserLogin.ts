@@ -2,7 +2,7 @@ interface UserLogin{
     id: number;
     usuario:string;
     senha: string;
-    foto:string;
+    foto:string | null;
     token?: string| null
 }
 

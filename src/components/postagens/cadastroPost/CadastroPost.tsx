@@ -44,6 +44,7 @@ function CadastroPost(){
         id: 0,
         titulo: '',
         texto: '',
+        data: null,
         tema: null,
         user: null
     })
@@ -146,7 +147,7 @@ function CadastroPost(){
                         labelId="demo-simple-select-helper-label"
                         id="demo-simple-select-helper"
                         onChange={(e)=> buscaId(`/tema/${e.target.value}`, setTema,{
-                            Headers:{
+                            headers:{
                                 'Authorization': token
                             }
                         })}>

@@ -43,7 +43,7 @@ function DeletarPostagem() {
 
   async function findById(id: string) {
     buscaId(`/postagens/${id}`, setPosts, {
-      Headers: {
+      headers: {
         'Authorization': token
       }
     })
@@ -52,7 +52,7 @@ function DeletarPostagem() {
   async function sim() {
     navigate('/posts')
     deleteId(`/postagens/${id}`, {
-      Headers: {
+      headers: {
         'Authorization': token
       }
     })

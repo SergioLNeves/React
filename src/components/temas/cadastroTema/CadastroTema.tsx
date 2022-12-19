@@ -46,7 +46,7 @@ function CadastroTema() {
 
     async function findById(id: string) {
         buscaId(`/tema/${id}`, setTema, {
-            Headers: {
+            headers: {
                 'Authorization': token
             }
         })
@@ -60,7 +60,7 @@ function CadastroTema() {
         if (id !== undefined) {
             console.log(tema)
             put(`/tema`, tema, setTema, {
-                Headers: {
+                headers: {
                     'Authorization': token
                 }
             })
@@ -77,7 +77,7 @@ function CadastroTema() {
 
         } else {
             post(`/tema`, tema, setTema, {
-                Headers: {
+                headers: {
                     'Authorization': token
                 }
             })
